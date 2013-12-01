@@ -20,7 +20,7 @@ func redirect_and_store(w http.ResponseWriter, r *http.Request) {
 	}
 
 	values.Set("v", "1")
-	values.Set("tid", "UA-41332661-1")
+	values.Set("tid", "MO-41332661-1")
 	values.Set("cid", ga_cookie)
 	values.Set("t", "event")
 	values.Set("ea", "Download")
