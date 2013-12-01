@@ -37,7 +37,7 @@ func serve() (func (http.ResponseWriter, *http.Request)) {
 
 func main() {
   http.HandleFunc("/mp3/", serve())
-  srv := http.Server{Addr: "127.0.0.1:8081"}
+  srv := http.Server{Addr: "0.0.0.0:8081"}
   srv.ListenAndServe()
   os.Exit(0)
 }
