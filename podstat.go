@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+  "fmt"
 )
 
 func redirect_and_store(w http.ResponseWriter, r *http.Request) {
@@ -27,6 +28,7 @@ func redirect_and_store(w http.ResponseWriter, r *http.Request) {
 	values.Set("el", r.URL.Path)
 	values.Set("ec", "Podcast")
 	if len(xff_ip) != 0 {
+    fmt.Print(xff_ip)
 		values.Set("utmip", xff_ip)
 	}
 
