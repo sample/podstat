@@ -40,8 +40,14 @@ func serve() func(http.ResponseWriter, *http.Request) {
 	}
 }
 
+func rdr_to_deflope(w http.ResponseWriter, r *http.Request) {
+
+	http.Redirect(w, r, "http://devopsdeflope.ru/", http.StatusFound)
+}
+
 func main() {
 	http.HandleFunc("/mp3/", serve())
+	http.HandleFunc("/", rdr_to_deflope)
 	srv := http.Server{Addr: ":" + os.Getenv("PORT")}
 	srv.ListenAndServe()
 	os.Exit(0)
