@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -33,22 +34,14 @@ func redirectAndStore(w http.ResponseWriter, r *http.Request) {
 	http.PostForm("http://www.google-analytics.com/collect", url.Values(values))
 }
 
-func serve() func(http.ResponseWriter, *http.Request) {
-
-	return func(w http.ResponseWriter, r *http.Request) {
-		redirectAndStore(w, r)
-	}
-}
-
 func rdrToDeflope(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "http://devopsdeflope.ru/", http.StatusFound)
 }
 
 func main() {
-	http.HandleFunc("/mp3/", serve())
+	http.HandleFunc("/mp3/", redirectAndStore)
 	http.HandleFunc("/", rdrToDeflope)
-	srv := http.Server{Addr: ":" + os.Getenv("PORT")}
-	srv.ListenAndServe()
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 	os.Exit(0)
 }
