@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func redirect_and_store(w http.ResponseWriter, r *http.Request) {
+func redirectAndStore(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "http://devopsdeflope.ru/"+r.URL.Path[1:], http.StatusFound)
 
 	values := make(url.Values)
@@ -36,18 +36,18 @@ func redirect_and_store(w http.ResponseWriter, r *http.Request) {
 func serve() func(http.ResponseWriter, *http.Request) {
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		redirect_and_store(w, r)
+		redirectAndStore(w, r)
 	}
 }
 
-func rdr_to_deflope(w http.ResponseWriter, r *http.Request) {
+func rdrToDeflope(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "http://devopsdeflope.ru/", http.StatusFound)
 }
 
 func main() {
 	http.HandleFunc("/mp3/", serve())
-	http.HandleFunc("/", rdr_to_deflope)
+	http.HandleFunc("/", rdrToDeflope)
 	srv := http.Server{Addr: ":" + os.Getenv("PORT")}
 	srv.ListenAndServe()
 	os.Exit(0)
